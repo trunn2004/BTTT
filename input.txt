@@ -1,3 +1,7 @@
+tạo file input.txt bằng notepad
+save file input.txt cùng thư mục với flie chương trình chạy
+
+
 0 1
 0 3
 1 2
