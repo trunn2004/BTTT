@@ -77,7 +77,7 @@ void drawGraph() {
 void readGraphFromFile(const char* filename) {
     ifstream infile(filename);
     if (!infile) {
-        cerr << "Không th? m? file!" << endl;
+        cerr << "Khong the mo file!" << endl;
         exit(1);
     }
 
@@ -92,7 +92,7 @@ void readGraphFromFile(const char* filename) {
 void writeEulerPathToFile(const char* filename) {
     ofstream outfile(filename);
     if (!outfile) {
-        cerr << "Không th? m? file!" << endl;
+        cerr << "Khong the mo file!" << endl;
         exit(1);
     }
 
@@ -117,7 +117,7 @@ int main() {
     findEulerPath(0);
 
     
-    cout << "Chu trình Euler: ";
+    cout << "Chu trÃ¬nh Euler: ";
     for (int i = 0; i < pathIndex; i++) {
         cout << path[i] << " ";
     }
