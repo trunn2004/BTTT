@@ -2,6 +2,10 @@
 #include <fstream>
 #include <graphics.h>
 #include <cmath>
+#include <chrono>
+
+using namespace std;
+using namespace std::chrono;
 
 #define MAX 10
 #define M_PI 3.14159265358979323846
@@ -102,6 +106,18 @@ void writeEulerPathToFile(const char* filename) {
     outfile << endl;
     outfile.close();
 }
+void measureEulerianCycle() 
+{ 
+	auto start = high_resolution_clock::now(); 
+	readGraphFromFile("input.txt"); 
+	findEulerPath(0); 
+	auto stop = high_resolution_clock::now(); 
+	auto duration = duration_cast<microseconds>(stop - start); 
+	cout << "Thoi gian thuc hien: " << duration.count() << " microseconds\n"; 
+	writeEulerPathToFile("euler_output.txt"); 
+	size_t memoryUsed = sizeof(graph) + sizeof(degree) + sizeof(path) + sizeof(visitedEdges); 
+	cout << "Bo nho su dung: " << memoryUsed << " bytes\n"; 
+}
 
 int main() {
     for (int i = 0; i < MAX; i++) {
@@ -111,22 +127,22 @@ int main() {
         }
         degree[i] = 0;
     }
-
+	measureEulerianCycle();
     readGraphFromFile("input.txt");
 
     findEulerPath(0);
 
     
-    cout << "Chu trình Euler: ";
+    cout << "Chu trinh Euler: ";
     for (int i = 0; i < pathIndex; i++) {
         cout << path[i] << " ";
+        
     }
     cout << endl;
 
     writeEulerPathToFile("output.txt");
-
+	
     drawGraph();
-
+	
     return 0;
 }
-
