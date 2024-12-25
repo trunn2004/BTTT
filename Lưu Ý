@@ -1,0 +1,12 @@
+Lưu Ý khi chạy project :
+$1: -Vào Tools -> Compiler Options -> Settings -> Code Generation 
+-Tại dòng Language standard (-std) : chọn ISO C++11 (hoặc bản cao hơn)
+-Nhấn OK
+$2: Trước khi chạy project :
+- Vào mục Project -> Chọn Project Options
+- Chọn mục Parameters
+- Nhập dòng -std=c++11 (Hoặc phiên bản tương ứng) vào ô C++ compiler
+- Nhấn OK
+
+
+Những lưu ý này để giúp cho code không gặp lỗi với thư viện chrono khi chạy
