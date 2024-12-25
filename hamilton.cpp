@@ -2,8 +2,14 @@
 #include <stdlib.h>
 #include <graphics.h>
 #include <math.h>
+#include <chrono>
+#include <iostream>
 
-#define V 10
+using namespace std;
+using namespace std::chrono;
+
+#define V 8
+#define M_PI 3.14159265358979323846
 
 int graph[V][V];
 int path[V];
@@ -107,7 +113,7 @@ void drawGraph() {
 void readFromFile(const char* filename) {
     FILE* file = fopen(filename, "r");
     if (!file) {
-        fprintf(stderr, "Không the mo file!\n");
+        fprintf(stderr, "KhÃ´ng the mo file!\n");
         exit(1);
     }
 
@@ -131,27 +137,57 @@ void writeToFile(const char* filename) {
     }
     fclose(file);
 }
+void measureHamiltonianCycle() 
+{ 
+	const int numRuns = 100;
+	 long long totalDuration = 0; 
+	 size_t memoryUsed = sizeof(graph) + sizeof(path); 
+	 
+	for (int i = 0; i < numRuns; ++i) { 
+	  for (int j = 0; j < V; j++) { 
+	  	for (int k = 0; k < V; k++){ 
+	   			graph[j][k] = 0;
+			} 
+			   path[j] = -1; 
+		} 
+			   
+		readFromFile("input.txt"); 
+		
+		auto start = high_resolution_clock::now(); 
+		hamCycle(); 
+		auto stop = high_resolution_clock::now(); 
+		auto duration = duration_cast<microseconds>(stop - start); 
+		totalDuration += duration.count(); 
+	} 
+		
+	double averageDuration = static_cast<double>(totalDuration) / numRuns; 
+	cout << "Thoi gian thuc hien trung binh: " << averageDuration << " microseconds\n"; 
+	cout << "Bo nho su dung: " << memoryUsed << " bytes\n"; 
+}
 
+	
 int main() {
   
     for (int i = 0; i < V; i++)
         for (int j = 0; j < V; j++)
             graph[i][j] = 0;
-
+            
+	
     for (int i = 0; i < V; i++)
-path[i] = -1;
-
-    
+		path[i] = -1;
+		
+	
+    measureHamiltonianCycle();
     readFromFile("input.txt");
-
+	
     
     if (hamCycle()) {
         printSolution();
         drawGraph();
     }
-
+	
     
     writeToFile("output.txt");
-
+	
     return 0;
 }
